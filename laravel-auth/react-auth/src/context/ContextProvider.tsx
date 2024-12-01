@@ -9,10 +9,12 @@ type ContextProviderProps = {
 export const ContextProvider: FC<ContextProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [tokenState, setTokenState] = useState(localStorage.getItem("ACCESS_TOKEN"));
-    // const [tokenState, setTokenState] = useState("123");
+    // const [tokenState, setTokenState] = useState<string | null>("123");
 
-    const setToken = (token: string) => {
+    const setToken = (token: string | null) => {
         setTokenState(token);
+        console.log("ContextProvider token ", localStorage);
+        console.log("ContextProvider token ", token);
         if (token) {
             localStorage.setItem("ACCESS_TOKEN", token);
         } else {

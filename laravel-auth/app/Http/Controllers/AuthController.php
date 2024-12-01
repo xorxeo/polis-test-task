@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Log;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -31,9 +33,12 @@ class AuthController extends Controller
                     ['password' => bcrypt($request->password)]
                 ));
 
+        $token = JWTAuth::fromUser($user);
+       
         return response()->json([
             'message' => 'User successfully registered',
-            'user' => $user
+            'user' => $user,
+            'token' => $token,
         ], 201);
     }
 
